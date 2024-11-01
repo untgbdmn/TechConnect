@@ -11,11 +11,14 @@ export default {
 
     theme: {
         extend: {
+            colors: {
+                primary: "#1c1c1c"
+            },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
         },
     },
 
-    plugins: [forms],
+    plugins: [forms, require("rippleui")],
 };

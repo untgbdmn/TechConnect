@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.table__list > thead > tr > th {
+    @apply bg-primary text-white py-1;
+}
+
+.table__list > tbody > tr > td {
+    @apply text-black text-center py-1;
+}
+
+.table__list > tbody > tr {
+    @apply border-b border-primary;
+}
