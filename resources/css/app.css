@@ -3,13 +3,10 @@
 @tailwind utilities;
 
 .table__list > thead > tr > th {
-    @apply bg-primary text-white py-1;
+    @apply bg-primary text-white py-1 text-sm;
 }
 
 .table__list > tbody > tr > td {
-    @apply text-black text-center py-1;
+    @apply text-black text-center py-1 text-sm;
 }
 
-.table__list > tbody > tr {
-    @apply border-b border-primary;
-}

@@ -1,11 +1,16 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Daftar Siswa') }}
+            {{ __('Daftar Kelas') }}
         </h2>
     </x-slot>
 
     <div class="px-4 mt-3 w-full">
+        @if (Session::has('alert.sweetalert'))
+            <script>
+                Swal.fire({!! Session::pull('alert.sweetalert') !!});
+            </script>
+        @endif
         <div class="flex flex-col w-full overflow-x-auto">
             <div class="text-white rounded-sm p-1 mb-3">
                 <div class="grid grid-cols-2 items-center">
@@ -20,46 +25,33 @@
                         </div>
                     </form>
                     <div class="flex items-center justify-end">
-                        <a href={{ route('siswa.create') }}
+                        <a href={{ route('kelas.create') }}
                             class="bg-primary text-white px-4 rounded-md py-1 inline-flex items-center justify-center font-bold">
                             <x-bi-plus class="h-full w-6" />
                             Tambah</a>
                     </div>
                 </div>
             </div>
-            @if ($data->isNotEmpty())
+            @if ($kelas->isNotEmpty())
                 <table class="w-full table__list mb-3 bg-white rounded-md px-2 pb-2">
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>Nama</th>
-                            <th>NIS</th>
-                            <th>NISN</th>
-                            <th>Kelas</th>
+                            <th>Kode Kelas</th>
+                            <th>Jumlah Siswa</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($data as $key => $item)
+                        @foreach ($kelas as $key => $item)
                             <tr>
                                 <td>{{ $key + 1 }}</td>
-                                <td>{{ $item->nama_siswa }}</td>
-                                <td>{{ $item->no_induk }}</td>
-                                <td>{{ $item->no_induk_nasional }}</td>
-                                <td>{{ $item->kelas->nama_kelas }}</td>
+                                <td>{{ $item->nama_kelas }}</td>
+                                <td>{{ $item->kelas_code }}</td>
+                                <td>{{ $item->jumlah_siswa }}</td>
                                 <td>
-                                    <x-dropdown align="right" width="20" class="relative">
-                                        <x-slot name="trigger">
-                                            <x-polaris-menu-horizontal-icon class="h-full w-6" />
-                                        </x-slot>
-                                        <x-slot name="content">
-                                            <div class="absolute right-0 top-1 bg-white z-10">
-                                                <x-actions-link :href="route('siswa.detail', ['siswa_id' => $item->siswa_id])">
-                                                    {{ __('Detail') }}
-                                                </x-actions-link>
-                                            </div>
-                                        </x-slot>
-                                    </x-dropdown>
+
                                 </td>
                             </tr>
                         @endforeach
@@ -72,7 +64,7 @@
                 </div>
             @endif
             <div class="text-black">
-                {{ $data->links() }}
+                {{-- {{ $kelas->links() }} --}}
             </div>
         </div>
     </div>

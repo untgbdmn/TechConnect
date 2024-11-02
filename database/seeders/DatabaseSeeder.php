@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Kelas;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Siswa;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,5 +22,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@admin.com',
             'password'=> bcrypt('admin12345'),
         ]);
+
+        // Siswa::factory(10)->create();
+
     }
 }

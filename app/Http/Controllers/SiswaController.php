@@ -2,17 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelas;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class SiswaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('siswa.list');
+        $search = $request->input("search");
+        $dataSiswa = Siswa::orderBy('nama_siswa', 'asc')->with('kelas');
+        if ($search) {
+            $dataSiswa->where('nama_siswa', 'ILIKE', '%' . $search . '%');
+        }
+        $dataSiswa = $dataSiswa->paginate(10);
+        // dd($dataSiswa);
+        return view('siswa.list', ['data' => $dataSiswa]);
     }
 
     /**
@@ -20,7 +30,16 @@ class SiswaController extends Controller
      */
     public function create()
     {
-        //
+        $data_kelas = DB::table('_kelas')
+            ->select('kelas_id', 'nama_kelas')
+            ->whereIn('kelas_id', function ($query) {
+                $query->select(DB::raw('MAX(kelas_id)'))
+                    ->from('_kelas')
+                    ->groupBy('nama_kelas');
+            })
+            ->get();
+
+        return view('siswa.add', compact('data_kelas'));
     }
 
     /**
@@ -34,9 +53,14 @@ class SiswaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Siswa $siswa)
+    public function show($siswa_id)
     {
-        //
+        $siswa = Siswa::where('siswa_id', $siswa_id)->first();
+
+        if (!$siswa) {
+            return redirect()->route('siswa.list')->with('error', 'Data siswa tidak ditemukan.');
+        }
+        return view('siswa.detail', ['data' => $siswa]);
     }
 
     /**
