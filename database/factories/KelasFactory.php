@@ -25,9 +25,8 @@ class KelasFactory extends Factory
                 "Teknik Sipil"
             ]
             ),
-            'tingkat_kelas' => $this->faker->randomElement(['7', '8', '9', '10', '11', '12', '13']),
-            'kelas_code' => $this->faker->unique()->word,
-            'jumlah_siswa' => $this->faker->numberBetween(20, 40),
+            'tingkat_kelas' => $this->faker->randomElement(['X', 'XI', 'XII']),
+            'kelas_code' => $this->faker->unique()->numerify('GRD-###'),
             'created_at' => now(),
             'updated_at' => now(),
         ];

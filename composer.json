@@ -6,13 +6,15 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "afatmustafa/blade-hugeicons": "^0.0.3",
         "blade-ui-kit/blade-heroicons": "^2.4",
+        "blade-ui-kit/blade-zondicons": "^1.5",
+        "codeat3/blade-grommet-icons": "^1.9",
         "davidhsianturi/blade-bootstrap-icons": "^1.5",
         "eduard9969/blade-polaris-icons": "^2.7",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
-        "realrashid/sweet-alert": "^7.2",
-        "synergitech/laravel-alert": "^2.0"
+        "mallardduck/blade-boxicons": "^2.4"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

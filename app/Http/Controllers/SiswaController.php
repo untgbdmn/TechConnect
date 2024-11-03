@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kelas;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class SiswaController extends Controller
 {
@@ -47,7 +45,21 @@ class SiswaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $req = [
+            'nama_siswa' => $request->input('nama_siswa'),
+            'kelas_id' => $request->input('select_kelas'),
+            'no_induk' => $request->input('nomor_induk'),
+            'no_induk_nasional' => $request->input('nomor_nasional'),
+            'jenis_kelamin' => $request->input('gender'),
+            'alamat' => $request->input('alamat'),
+            'tanggal_lahir' => $request->input('tanggal_lahir'),
+            'tempat_lahir' => $request->input('tempat_lahir'),
+            'agama' => $request->input('agama'),
+            'phone_number' => $request->input('phone'),
+            'email' => $request->input('email'),
+        ];
+        Siswa::create($req);
+        return redirect()->route('siswa.list')->with('success','Berhasil menambahkan data siswa!');
     }
 
     /**
@@ -68,7 +80,16 @@ class SiswaController extends Controller
      */
     public function edit(Siswa $siswa)
     {
-        //
+        $data_kelas = DB::table('_kelas')
+            ->select('kelas_id', 'nama_kelas')
+            ->whereIn('kelas_id', function ($query) {
+                $query->select(DB::raw('MAX(kelas_id)'))
+                    ->from('_kelas')
+                    ->groupBy('nama_kelas');
+            })
+            ->get();
+        $data = Siswa::where('siswa_id', $siswa->siswa_id)->first();
+        return view('siswa.edit', ['data'=> $data, 'data_kelas' => $data_kelas]);
     }
 
     /**
@@ -76,7 +97,22 @@ class SiswaController extends Controller
      */
     public function update(Request $request, Siswa $siswa)
     {
-        //
+        $req = [
+            'nama_siswa' => $request->input('nama_siswa'),
+            'kelas_id' => $request->input('select_kelas'),
+            'no_induk' => $request->input('nomor_induk'),
+            'no_induk_nasional' => $request->input('nomor_nasional'),
+            'jenis_kelamin' => $request->input('gender'),
+            'alamat' => $request->input('alamat'),
+            'tanggal_lahir' => $request->input('tanggal_lahir'),
+            'tempat_lahir' => $request->input('tempat_lahir'),
+            'agama' => $request->input('agama'),
+            'phone_number' => $request->input('phone'),
+            'email' => $request->input('email'),
+        ];
+
+        $siswa->update( $req );
+        return redirect()->route('siswa.list')->with('success','Berhasil mengubah data siswa!');
     }
 
     /**
@@ -84,6 +120,7 @@ class SiswaController extends Controller
      */
     public function destroy(Siswa $siswa)
     {
-        //
+        $siswa->delete();
+        return redirect()->route('siswa.list')->with('success','Berhasil menghapus data siswa!');
     }
 }

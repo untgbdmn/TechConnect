@@ -14,8 +14,9 @@
             @endif
 
     <div class="px-5">
-        <form action={{ route('siswa.add') }} method="POST" class="">
+        <form action={{ route('siswa.update',['siswa' => $data->siswa_id]) }} method="get" class="">
             @csrf
+            @method('get')
             <div class="grid grid-cols-8 gap-y-2 gap-x-5">
                 {{-- Input Nama --}}
                 <div class="mb-2 flex flex-col gap-1 col-span-4">
@@ -24,7 +25,7 @@
                     </label>
                     <input type="text" id="nama_siswa" name="nama_siswa" required
                         class="block w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                        placeholder="e.g. Asirwanda Samosir">
+                        placeholder="e.g. Asirwanda Samosir" value="{{ $data->nama_siswa }}">
                 </div>
                 {{-- Input Kelas --}}
                 <div class="mb-2 flex flex-col gap-1 col-span-4">
@@ -41,10 +42,12 @@
                         </label>
                         <select
                             class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer"
-                            name="select_kelas" id="select_kelas">
+                            name="select_kelas" id="select_kelas" value>
                             <option value="">Pilih Kelas</option>
                             @foreach ($data_kelas as $key => $i)
-                                <option value={{ $i->kelas_id }}>{{ $i->nama_kelas }}</option>
+                                <option value={{ $i->kelas_id }} @if($data->kelas_id == $i->kelas_id)
+                                    selected
+                                @endif>{{ $i->nama_kelas }}</option>
                             @endforeach
                         </select>
                     @endif
@@ -56,7 +59,7 @@
                     </label>
                     <input type="text" id="nomor_induk" name="nomor_induk"
                         class="block w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                        placeholder="e.g. 20547">
+                        placeholder="e.g. 20547" value="{{ $data->no_induk }}">
                 </div>
                 {{-- Nomor Induk Nasional --}}
                 <div class="mb-2 flex flex-col gap-1 col-span-2">
@@ -65,7 +68,7 @@
                     </label>
                     <input type="text" id="nomor_nasional" name="nomor_nasional"
                         class="block w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                        placeholder="e.g. 0053618">
+                        placeholder="e.g. 0053618" value="{{ $data->no_induk_nasional }}">
                 </div>
                 {{-- Tempat Lahir --}}
                 <div class="mb-2 flex flex-col gap-1 col-span-2">
@@ -74,7 +77,7 @@
                     </label>
                     <input type="text" id="tempat_lahir" name="tempat_lahir"
                         class="block w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                        placeholder="e.g. Kulon Progo">
+                        placeholder="e.g. Kulon Progo" value="{{ $data->tempat_lahir }}">
                 </div>
                 {{-- Tanggal Lahir --}}
                 <div class="mb-2 flex flex-col gap-1 col-span-2">
@@ -82,28 +85,28 @@
                         Nama Siswa
                     </label>
                     <input type="date" id="tanggal_lahir" name="tanggal_lahir"
-                        class="block w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
+                        class="block w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" value="{{ $data->tanggal_lahir }}">
                 </div>
                 {{-- Jenis Kelamin --}}
-                <div class="mb-2 flex flex-col gap-1 col-span-1">
+                <div class="mb-2 flex flex-col gap-1 col-span-2">
                     <label for="gender" class="block text-sm font-medium text-gray-700">
                         Jenis Kelamin
                     </label>
                     <select
                         class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer"
                         name="gender" id="gender">
-                        <option value="L">Laki Laki</option>
-                        <option value="P">Perempuan</option>
+                        <option value="L"  @if($data->jenis_kelamin == 'L') selected @endif>Laki Laki</option>
+                        <option value="P"  @if($data->jenis_kelamin == 'P') selected @endif>Perempuan</option>
                     </select>
                 </div>
                 {{-- Alamat --}}
-                <div class="mb-2 flex flex-col gap-1 col-span-7">
+                <div class="mb-2 flex flex-col gap-1 col-span-6">
                     <label for="alamat" class="block text-sm font-medium text-gray-700">
                         Alamat
                     </label>
                     <input type="text" id="alamat" name="alamat"
                         class="block w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                        placeholder="e.g. Jl. Raya Kaliurang">
+                        placeholder="e.g. Jl. Raya Kaliurang" value="{{ $data->alamat }}">
                 </div>
                 {{-- Agama --}}
                 <div class="mb-2 flex flex-col gap-1 col-span-2">
@@ -112,7 +115,7 @@
                     </label>
                     <input type="text" id="agama" name="agama"
                         class="block w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                        placeholder="e.g. Islam">
+                        placeholder="e.g. Islam" value="{{ $data->agama }}">
                 </div>
                 {{-- Email --}}
                 <div class="mb-2 flex flex-col gap-1 col-span-3">
@@ -121,7 +124,7 @@
                     </label>
                     <input type="text" id="email" name="email"
                         class="block w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                        placeholder="e.g. asirwanda@gmail.com">
+                        placeholder="e.g. asirwanda@gmail.com" value="{{ $data->email }}">
                 </div>
                 {{-- Phone --}}
                 <div class="mb-2 flex flex-col gap-1 col-span-3">
@@ -130,7 +133,7 @@
                     </label>
                     <input type="text" id="phone" name="phone"
                         class="block w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                        placeholder="e.g. 083718391827">
+                        placeholder="e.g. 083718391827" value="{{ $data->phone_number }}">
                 </div>
             </div>
             <div class="flex flex-row gap-5 mt-5">
@@ -141,6 +144,4 @@
             </div>
         </form>
     </div>
-
-
 </x-app-layout>

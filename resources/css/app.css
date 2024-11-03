@@ -3,10 +3,9 @@
 @tailwind utilities;
 
 .table__list > thead > tr > th {
-    @apply bg-primary text-white py-1 text-sm;
+    @apply bg-primary text-white py-1 text-sm text-center;
 }
 
 .table__list > tbody > tr > td {
     @apply text-black text-center py-1 text-sm;
 }
-

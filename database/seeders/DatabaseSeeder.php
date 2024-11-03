@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             'password'=> bcrypt('admin12345'),
         ]);
 
-        // Siswa::factory(10)->create();
+        Siswa::factory(15)->create();
 
     }
 }

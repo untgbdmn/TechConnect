@@ -20,19 +20,17 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="node_modules/@material-tailwind/html@latest/scripts/dialog.js"></script>
     <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/dialog.js"></script>
-    @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
 </head>
 
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-white flex flex-row w-full">
         @include('layouts.sidebar')
-        @include('sweetalert::alert')
 
-        <main class="text-black w-full">
+        <main class="text-black w-full bg-[#f5f5f5]">
             <div class="px-5 pt-5">
                 {{-- Page Heading --}}
                 @isset($header)
-                    <header class="bg-white">
+                    <header class="bg-transparent">
                         <div class="max-w-7xl mx-auto py-3 px-4 sm:px-6 lg:px-5 flex flex-col">
                             <span class="capitalize font-semibold text-sm">System Management panel</span>
                             {{ $header }}
