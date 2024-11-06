@@ -21,7 +21,8 @@
 
                         @php
                             $activeRoutes = ['siswa.list', 'siswa.detail', 'siswa.create', 'siswa.edit'];
-                            $activeClass = ['kelas.list', 'kelas.create']
+                            $activeClass = ['kelas.list', 'kelas.create'];
+                            $activeTeach = ['guru.list', 'guru.create'];
                         @endphp
                         <x-nav-link :href="route('siswa.list')" :active="request()->routeIs($activeRoutes)">
                             <x-bi-person-fill class="h-5 w-5" />
@@ -33,6 +34,10 @@
                             {{ __('Kelas') }}
                         </x-nav-link>
 
+                        <x-nav-link :href="route('guru.list')" :active="request()->routeIs($activeTeach)">
+                            <x-fontisto-person class="h-5 w-5" />
+                            {{ __('Guru') }}
+                        </x-nav-link>
                         <li>
                             <input type="checkbox" id="menu-1" class="menu-toggle" />
                             <label class="menu-item justify-between" for="menu-1">

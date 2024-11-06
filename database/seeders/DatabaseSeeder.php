@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Guru;
 use App\Models\User;
-use App\Models\Kelas;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Kelas;
 use App\Models\Siswa;
 use Illuminate\Database\Seeder;
 
@@ -24,6 +25,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Siswa::factory(15)->create();
+        Guru::factory(15)->create();
 
     }
 }
